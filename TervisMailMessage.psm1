@@ -10,13 +10,8 @@ Function Send-TervisMailMessage {
         $Attachments,
         [Switch]$BodyAsHTML
     )
-
     $Credential = Get-PasswordstateCredential -PasswordID 3971
-    if ($Bcc) {
-        Send-MailMessage -To $To -Bcc $Bcc -Subject $Subject -Body $Body -From $From -BodyAsHtml:$BodyAsHTML -SmtpServer "smtp.office365.com" -Port "587" -Credential $Credential -UseSsl -Attachments $Attachments
-    } else {
-        Send-MailMessage -To $To -Subject $Subject -Body $Body -From $From -BodyAsHtml:$BodyAsHTML -SmtpServer "smtp.office365.com" -Port "587" -Credential $Credential -UseSsl -Attachments $Attachments
-    }
+    Send-MailMessage @PSBoundParameters -SmtpServer "smtp.office365.com" -Port "587" -Credential $Credential -UseSsl
 }
 
 ##requires -Version 2.0
