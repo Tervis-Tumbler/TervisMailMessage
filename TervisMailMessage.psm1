@@ -14,6 +14,18 @@ Function Send-TervisMailMessage {
     Send-MailMessage @PSBoundParameters -SmtpServer "smtp.office365.com" -Port "587" -Credential $Credential -UseSsl
 }
 
+Function Send-TervisMailMessageCudaspam {
+    param (
+        $NameOfServerToSendMailFrom
+    )
+
+    Invoke-Command -ComputerName $NameOfServerToSendMailFrom -ArgumentList $Subject,$Body,$To -ScriptBlock {
+        param ($Subject, $Body, $To)
+        Send-MailMessage -from "HelpDesk@Tervis.com" -To $To -Subject $Subject -Body $Body -SmtpServer $(Get-TervisDNSMXMailServer)
+    }
+    
+}
+
 ##requires -Version 2.0
 ##https://gallery.technet.microsoft.com/scriptcenter/Send-MailMessage-3a920a6d
 #function Send-MailMessage
