@@ -3,6 +3,7 @@
 Function Send-TervisMailMessage {
     param(
         $To,
+        $Cc,
         $Bcc,
         $Subject,
         $Body,
