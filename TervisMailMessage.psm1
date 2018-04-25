@@ -9,10 +9,16 @@ Function Send-TervisMailMessage {
         $Body,
         $From,
         $Attachments,
-        [Switch]$BodyAsHTML
+        [Switch]$BodyAsHTML,
+        [Switch]$UseAuthentication
     )
-    $Credential = Get-PasswordstateCredential -PasswordID 3971
-    Send-MailMessage @PSBoundParameters -SmtpServer "smtp.office365.com" -Port "587" -Credential $Credential -UseSsl
+    if ($UseAuthentication) {
+        $Credential = Get-PasswordstateCredential -PasswordID 3971
+        Send-MailMessage @PSBoundParameters -SmtpServer "smtp.office365.com" -Port "587" -Credential $Credential -UseSsl
+    } else {
+        Send-MailMessage @PSBoundParameters -SmtpServer tervis-com.mail.protection.outlook.com -UseSsl
+    }
+    
 }
 
 Function Send-TervisMailMessageCudaspam {
