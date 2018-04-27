@@ -1,6 +1,4 @@
-﻿#Requires -Modules TervisPasswordstatePowerShell
-
-Function Send-TervisMailMessage {
+﻿Function Send-TervisMailMessage {
     param(
         $To,
         $Cc,
